@@ -1,0 +1,29 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Shield -->
+  <path 
+    d="M32 4L56 14V34C56 46 44 56 32 60C20 56 8 46 8 34V14L32 4Z" 
+    fill="url(#grad)"
+  />
+  
+  <!-- Inner circle -->
+  <circle cx="32" cy="32" r="14" fill="#050505" opacity="0.5"/>
+  
+  <!-- DNA simplified -->
+  <g transform="translate(32, 32)" stroke="#10b981" stroke-width="2" stroke-linecap="round">
+    <line x1="0" y1="-8" x2="0" y2="8"/>
+    <line x1="-6" y1="-4" x2="6" y2="-4"/>
+    <line x1="-6" y1="4" x2="6" y2="4"/>
+    <path d="M-6 -10 Q-10 0 -6 10" fill="none"/>
+    <path d="M6 -10 Q10 0 6 10" fill="none"/>
+  </g>
+  
+  <!-- Lock dot -->
+  <circle cx="32" cy="46" r="2" fill="#10b981"/>
+</svg>

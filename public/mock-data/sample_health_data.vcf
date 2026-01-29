@@ -1,0 +1,42 @@
+##fileformat=VCFv4.2
+##fileDate=20260129
+##source=LifeVaultMockGenerator
+##reference=GRCh38
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total Depth">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+##INFO=<ID=GENE,Number=1,Type=String,Description="Gene Symbol">
+##INFO=<ID=IMPACT,Number=1,Type=String,Description="Variant Impact">
+##INFO=<ID=CLIN,Number=1,Type=String,Description="Clinical Significance">
+##INFO=<ID=TRAIT,Number=1,Type=String,Description="Associated Health Trait">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+##contig=<ID=chr1,length=248956422>
+##contig=<ID=chr2,length=242193529>
+##contig=<ID=chr6,length=170805979>
+##contig=<ID=chr7,length=159345973>
+##contig=<ID=chr9,length=138394717>
+##contig=<ID=chr11,length=135086622>
+##contig=<ID=chr12,length=133275309>
+##contig=<ID=chr19,length=58617616>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SAMPLE001
+chr1	55051215	rs6025	G	A	99	PASS	DP=45;AF=0.5;GENE=F5;IMPACT=MODERATE;CLIN=risk_factor;TRAIT=Factor_V_Leiden_thrombophilia	GT:GQ:DP	0/1:99:45
+chr1	161479745	rs1801133	G	A	99	PASS	DP=52;AF=0.5;GENE=MTHFR;IMPACT=MODERATE;CLIN=risk_factor;TRAIT=Homocysteine_metabolism	GT:GQ:DP	0/1:99:52
+chr2	21232195	rs1799945	C	G	99	PASS	DP=38;AF=0.5;GENE=HFE;IMPACT=MODERATE;CLIN=risk_factor;TRAIT=Hemochromatosis_carrier	GT:GQ:DP	0/1:99:38
+chr6	31271836	rs1800629	G	A	99	PASS	DP=41;AF=0.5;GENE=TNF;IMPACT=MODIFIER;CLIN=benign;TRAIT=Inflammatory_response	GT:GQ:DP	0/1:99:41
+chr7	117199646	rs5742905	C	T	99	PASS	DP=55;AF=0.0;GENE=CFTR;IMPACT=LOW;CLIN=benign;TRAIT=Cystic_fibrosis_carrier_screen	GT:GQ:DP	0/0:99:55
+chr9	22125504	rs1333049	C	G	99	PASS	DP=48;AF=0.5;GENE=CDKN2B-AS1;IMPACT=MODIFIER;CLIN=risk_factor;TRAIT=Coronary_artery_disease	GT:GQ:DP	0/1:99:48
+chr11	5227002	rs334	T	A	99	PASS	DP=62;AF=0.0;GENE=HBB;IMPACT=HIGH;CLIN=benign;TRAIT=Sickle_cell_carrier_screen	GT:GQ:DP	0/0:99:62
+chr11	113283688	rs1800497	G	A	99	PASS	DP=44;AF=0.5;GENE=ANKK1;IMPACT=MODERATE;CLIN=drug_response;TRAIT=Dopamine_receptor_function	GT:GQ:DP	0/1:99:44
+chr12	112241766	rs3184504	T	C	99	PASS	DP=50;AF=0.5;GENE=SH2B3;IMPACT=MODERATE;CLIN=risk_factor;TRAIT=Cardiovascular_risk	GT:GQ:DP	0/1:99:50
+chr12	21331549	rs429358	T	C	99	PASS	DP=47;AF=0.5;GENE=APOE;IMPACT=MODERATE;CLIN=risk_factor;TRAIT=APOE_e4_Alzheimer_risk	GT:GQ:DP	0/1:99:47
+chr12	21331591	rs7412	C	C	99	PASS	DP=49;AF=0.0;GENE=APOE;IMPACT=MODERATE;CLIN=benign;TRAIT=APOE_genotype	GT:GQ:DP	0/0:99:49
+chr19	11200638	rs4420638	A	G	99	PASS	DP=53;AF=0.5;GENE=APOC1;IMPACT=MODIFIER;CLIN=risk_factor;TRAIT=Lipid_metabolism	GT:GQ:DP	0/1:99:53
+chr19	44908684	rs7946	C	T	99	PASS	DP=46;AF=0.5;GENE=PEMT;IMPACT=MODERATE;CLIN=benign;TRAIT=Choline_metabolism	GT:GQ:DP	0/1:99:46
+chr19	45411941	rs769449	G	A	99	PASS	DP=51;AF=0.5;GENE=APOE;IMPACT=LOW;CLIN=benign;TRAIT=Lipid_levels	GT:GQ:DP	0/1:99:51
+chr1	196642233	rs1801282	C	G	99	PASS	DP=42;AF=0.5;GENE=PPARG;IMPACT=MODERATE;CLIN=protective;TRAIT=Type_2_diabetes_protection	GT:GQ:DP	0/1:99:42
+chr2	227896976	rs1800795	G	C	99	PASS	DP=39;AF=0.5;GENE=IL6;IMPACT=MODIFIER;CLIN=risk_factor;TRAIT=Inflammatory_markers	GT:GQ:DP	0/1:99:39
+chr9	136137106	rs1801260	T	C	99	PASS	DP=54;AF=0.5;GENE=CLOCK;IMPACT=MODERATE;CLIN=benign;TRAIT=Circadian_rhythm	GT:GQ:DP	0/1:99:54
+chr11	17409572	rs1695	A	G	99	PASS	DP=47;AF=0.5;GENE=GSTP1;IMPACT=MODERATE;CLIN=drug_response;TRAIT=Detoxification_capacity	GT:GQ:DP	0/1:99:47
+chr19	1110271	rs4654748	C	T	99	PASS	DP=43;AF=0.5;GENE=NBPF3;IMPACT=MODIFIER;CLIN=benign;TRAIT=B_vitamin_metabolism	GT:GQ:DP	0/1:99:43
+chr6	26091179	rs2395029	T	G	99	PASS	DP=56;AF=0.0;GENE=HLA-C;IMPACT=MODIFIER;CLIN=drug_response;TRAIT=Abacavir_hypersensitivity	GT:GQ:DP	0/0:99:56

@@ -6,10 +6,10 @@ import {
   LayoutDashboard,
   Upload,
   Store,
-  Shield,
   Settings,
   ChevronLeft,
   ChevronRight,
+  Lock,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,7 +19,7 @@ const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/" },
   { icon: Upload, label: "Upload", href: "/upload" },
   { icon: Store, label: "Marketplace", href: "/marketplace" },
-  { icon: Shield, label: "Security", href: "/security" },
+  { icon: Lock, label: "Security", href: "/security" },
   { icon: Settings, label: "Settings", href: "/settings" },
 ];
 
@@ -45,9 +45,12 @@ export function Sidebar() {
       <div className="p-6 border-b border-glass-border">
         <Link href="/" className="flex items-center gap-3">
           <div className="relative">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center">
-              <Shield className="w-5 h-5 text-background" />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/logo-icon.svg" 
+              alt="LifeVault" 
+              className="w-10 h-10"
+            />
             {/* Pulse indicator */}
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full pulse-glow" />
           </div>

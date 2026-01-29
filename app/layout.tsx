@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "LifeVault | Your Health Data Swiss Bank",
   description: "Store, encrypt, and monetize your health data. Take ownership of your biological assets.",
   keywords: ["health data", "Web3", "data vault", "health wallet", "data monetization"],
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
