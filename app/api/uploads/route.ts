@@ -1,30 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDB, schema } from '@/lib/db';
 import { desc, eq } from 'drizzle-orm';
-import { cookies } from 'next/headers';
-
-async function getUserIdFromSession(): Promise<number | null> {
-  const cookieStore = await cookies();
-  const sessionToken = cookieStore.get('session_token')?.value;
-  if (!sessionToken) return null;
-
-  const db = getDB();
-  const sessions = await db
-    .select({ userId: schema.sessions.userId })
-    .from(schema.sessions)
-    .where(eq(schema.sessions.sessionToken, sessionToken))
-    .limit(1);
-
-  return sessions[0]?.userId ?? null;
-}
+import { auth } from '@/lib/auth';
 
 export async function GET() {
   try {
-    const userId = await getUserIdFromSession();
-    if (!userId) {
+    const session = await auth();
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const userId = parseInt(session.user.id, 10);
     const db = getDB();
     const uploads = await db
       .select()
@@ -41,11 +27,12 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const userId = await getUserIdFromSession();
-    if (!userId) {
+    const session = await auth();
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const userId = parseInt(session.user.id, 10);
     const body = await request.json();
     const {
       fileName,
