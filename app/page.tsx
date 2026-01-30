@@ -6,6 +6,7 @@ import { HealthRadar } from "@/components/dashboard/HealthRadar";
 import { HealthScore } from "@/components/dashboard/HealthScore";
 import { OpportunityCard } from "@/components/dashboard/OpportunityCard";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 // Mock data
 const healthRadarData = [
@@ -50,6 +51,9 @@ const opportunities = [
 ];
 
 export default function Dashboard() {
+  const { data: session } = useSession();
+  const userName = session?.user?.name || "Alex";
+
   return (
     <MainLayout>
       {/* Page Header */}
@@ -59,10 +63,10 @@ export default function Dashboard() {
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold tracking-tight mb-2">
-          Welcome back, <span className="text-gradient-accent">Alex</span>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+          Welcome back, <span className="text-gradient-accent">{userName}</span>
         </h1>
-        <p className="text-foreground-muted">
+        <p className="text-sm sm:text-base text-foreground-muted">
           Your health data vault is secure and generating yield.
         </p>
       </motion.div>
@@ -102,7 +106,7 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="mt-8 grid grid-cols-3 gap-4"
+        className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4"
       >
         <QuickAction
           title="Upload Data"

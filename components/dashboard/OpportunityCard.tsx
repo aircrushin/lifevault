@@ -43,47 +43,49 @@ function OpportunityItem({ opportunity, index }: { opportunity: Opportunity; ind
         "transition-all duration-300 cursor-pointer"
       )}
     >
-      <div className="flex items-start gap-4">
-        {/* Icon */}
-        <div className={cn(
-          "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
-          "bg-white/[0.05]"
-        )}>
-          <Icon className={cn("w-5 h-5", config.color)} />
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <h4 className="font-medium text-sm truncate">{opportunity.institution}</h4>
-            {opportunity.urgency === "high" && (
-              <span className="px-2 py-0.5 rounded-full bg-danger/10 text-danger text-[10px] font-medium">
-                Hot
-              </span>
-            )}
+      <div className="flex flex-col sm:flex-row sm:items-start gap-3">
+        <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
+          {/* Icon */}
+          <div className={cn(
+            "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
+            "bg-white/[0.05]"
+          )}>
+            <Icon className={cn("w-5 h-5", config.color)} />
           </div>
-          <p className="text-xs text-foreground-muted mb-2 line-clamp-1">
-            {opportunity.purpose}
-          </p>
-          <div className="flex items-center gap-2">
-            {opportunity.dataTypes.slice(0, 2).map((type) => (
-              <span
-                key={type}
-                className="px-2 py-0.5 rounded-md bg-white/[0.05] text-[10px] text-foreground-muted"
-              >
-                {type}
-              </span>
-            ))}
-            {opportunity.dataTypes.length > 2 && (
-              <span className="text-[10px] text-foreground-muted">
-                +{opportunity.dataTypes.length - 2}
-              </span>
-            )}
+
+          {/* Content */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <h4 className="font-medium text-sm truncate">{opportunity.institution}</h4>
+              {opportunity.urgency === "high" && (
+                <span className="px-2 py-0.5 rounded-full bg-danger/10 text-danger text-[10px] font-medium">
+                  Hot
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-foreground-muted mb-2 line-clamp-1">
+              {opportunity.purpose}
+            </p>
+            <div className="flex items-center gap-2 flex-wrap">
+              {opportunity.dataTypes.slice(0, 2).map((type) => (
+                <span
+                  key={type}
+                  className="px-2 py-0.5 rounded-md bg-white/[0.05] text-[10px] text-foreground-muted"
+                >
+                  {type}
+                </span>
+              ))}
+              {opportunity.dataTypes.length > 2 && (
+                <span className="text-[10px] text-foreground-muted">
+                  +{opportunity.dataTypes.length - 2}
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Earnings */}
-        <div className="text-right shrink-0">
+        <div className="flex items-center justify-between sm:block sm:text-right shrink-0 pl-13 sm:pl-0">
           <p className="text-lg font-semibold text-accent">
             {formatCurrency(opportunity.earnings)}
           </p>
@@ -93,7 +95,7 @@ function OpportunityItem({ opportunity, index }: { opportunity: Opportunity; ind
         </div>
 
         {/* Arrow */}
-        <ArrowRight className="w-4 h-4 text-foreground-muted opacity-0 group-hover:opacity-100 transition-opacity self-center" />
+        <ArrowRight className="hidden sm:block w-4 h-4 text-foreground-muted opacity-0 group-hover:opacity-100 transition-opacity self-center" />
       </div>
     </motion.div>
   );

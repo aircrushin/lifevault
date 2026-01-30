@@ -27,7 +27,7 @@ export function HealthRadar({ data }: HealthRadarProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.1 }}
     >
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Header */}
         <div className="flex items-center gap-2 mb-6">
           <div className="w-8 h-8 rounded-lg bg-accent-secondary/10 flex items-center justify-center">
@@ -44,7 +44,7 @@ export function HealthRadar({ data }: HealthRadarProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="h-[280px]"
+          className="h-[220px] sm:h-[280px]"
         >
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
@@ -89,7 +89,7 @@ export function HealthRadar({ data }: HealthRadarProps) {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 + index * 0.1 }}
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-white/[0.02]"
+              className="flex items-center justify-between px-2 py-1.5 sm:px-3 sm:py-2 rounded-lg bg-white/[0.02]"
             >
               <span className="text-xs text-foreground-muted">{item.category}</span>
               <span className="text-xs font-medium">{item.value}%</span>

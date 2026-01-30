@@ -50,26 +50,26 @@ export function EarningsDashboard({
   recentPayouts,
 }: EarningsDashboardProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Main Stats */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
         {/* Total Earnings */}
         <GlassCard
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
-                <Wallet className="w-4 h-4 text-accent" />
+          <div className="p-4 sm:p-5">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                <Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent" />
               </div>
               <span className="text-xs text-foreground-muted">Total Earnings</span>
             </div>
-            <p className="text-2xl font-bold text-gradient-accent">
+            <p className="text-xl sm:text-2xl font-bold text-gradient-accent">
               <AnimatedValue value={totalEarnings} />
             </p>
-            <div className="flex items-center gap-1 mt-2 text-success text-xs">
+            <div className="flex items-center gap-1 mt-1.5 sm:mt-2 text-success text-xs">
               <TrendingUp className="w-3 h-3" />
               <span>+12.5% this month</span>
             </div>
@@ -82,17 +82,17 @@ export function EarningsDashboard({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center">
-                <Clock className="w-4 h-4 text-gold" />
+          <div className="p-4 sm:p-5">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gold/10 flex items-center justify-center">
+                <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold" />
               </div>
               <span className="text-xs text-foreground-muted">Pending Payout</span>
             </div>
-            <p className="text-2xl font-bold text-gradient-gold">
+            <p className="text-xl sm:text-2xl font-bold text-gradient-gold">
               <AnimatedValue value={pendingPayout} />
             </p>
-            <p className="text-xs text-foreground-muted mt-2">
+            <p className="text-xs text-foreground-muted mt-1.5 sm:mt-2">
               Next payout: Feb 1, 2026
             </p>
           </div>
@@ -105,8 +105,8 @@ export function EarningsDashboard({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="p-5">
-          <div className="flex items-center justify-between mb-4">
+        <div className="p-4 sm:p-5">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
             <h3 className="text-sm font-medium">Earnings History</h3>
             <select className="text-xs bg-transparent text-foreground-muted border border-glass-border rounded-lg px-2 py-1">
               <option>Last 6 months</option>
@@ -115,7 +115,7 @@ export function EarningsDashboard({
             </select>
           </div>
 
-          <div className="h-[180px]">
+          <div className="h-[140px] sm:h-[180px]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={monthlyData}>
                 <defs>
@@ -166,31 +166,31 @@ export function EarningsDashboard({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <div className="p-5">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="p-4 sm:p-5">
+          <div className="flex items-center gap-2 mb-3 sm:mb-4">
             <History className="w-4 h-4 text-foreground-muted" />
             <h3 className="text-sm font-medium">Recent Payouts</h3>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {recentPayouts.map((payout, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 + index * 0.1 }}
-                className="flex items-center justify-between py-3 px-4 rounded-xl bg-white/[0.02]"
+                className="flex items-center justify-between py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl bg-white/[0.02]"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <ArrowUpRight className="w-4 h-4 text-accent" />
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium">{payout.source}</p>
-                    <p className="text-xs text-foreground-muted">{payout.date}</p>
+                    <p className="text-xs sm:text-sm font-medium">{payout.source}</p>
+                    <p className="text-[10px] sm:text-xs text-foreground-muted">{payout.date}</p>
                   </div>
                 </div>
-                <span className="text-sm font-semibold text-accent">
+                <span className="text-xs sm:text-sm font-semibold text-accent">
                   +{formatCurrency(payout.amount)}
                 </span>
               </motion.div>
@@ -202,7 +202,7 @@ export function EarningsDashboard({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={cn(
-              "w-full mt-4 py-3 rounded-xl font-medium",
+              "w-full mt-3 sm:mt-4 py-2.5 sm:py-3 rounded-xl font-medium",
               "bg-gradient-to-r from-accent to-accent-secondary",
               "text-background text-sm",
               "transition-all duration-300",

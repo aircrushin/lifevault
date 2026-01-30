@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
   Upload,
@@ -10,10 +10,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Lock,
+  Menu,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/" },
@@ -23,27 +25,24 @@ const navItems = [
   { icon: Settings, label: "Settings", href: "/settings" },
 ];
 
-export function Sidebar() {
-  const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
-
+function SidebarContent({
+  collapsed,
+  setCollapsed,
+  pathname,
+  onNavClick,
+  isMobile = false,
+}: {
+  collapsed: boolean;
+  setCollapsed: (collapsed: boolean) => void;
+  pathname: string;
+  onNavClick?: () => void;
+  isMobile?: boolean;
+}) {
   return (
-    <motion.aside
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={cn(
-        "fixed left-0 top-0 h-screen z-50",
-        "bg-background-secondary/80 backdrop-blur-xl",
-        "border-r border-glass-border",
-        "flex flex-col",
-        "transition-all duration-300",
-        collapsed ? "w-20" : "w-64"
-      )}
-    >
+    <>
       {/* Logo */}
       <div className="p-6 border-b border-glass-border">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3" onClick={onNavClick}>
           <div className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
@@ -54,7 +53,7 @@ export function Sidebar() {
             {/* Pulse indicator */}
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full pulse-glow" />
           </div>
-          {!collapsed && (
+          {(isMobile || !collapsed) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -66,6 +65,23 @@ export function Sidebar() {
           )}
         </Link>
       </div>
+
+      {/* Mobile Close Button */}
+      {isMobile && (
+        <button
+          onClick={onNavClick}
+          className={cn(
+            "absolute top-4 right-4",
+            "w-10 h-10 rounded-xl",
+            "bg-white/[0.02] border border-glass-border",
+            "flex items-center justify-center",
+            "text-foreground-muted hover:text-foreground",
+            "transition-colors duration-200"
+          )}
+        >
+          <X className="w-5 h-5" />
+        </button>
+      )}
 
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-2">
@@ -80,6 +96,7 @@ export function Sidebar() {
             >
               <Link
                 href={item.href}
+                onClick={onNavClick}
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 rounded-xl",
                   "transition-all duration-200",
@@ -92,7 +109,7 @@ export function Sidebar() {
                 {/* Active indicator */}
                 {isActive && (
                   <motion.div
-                    layoutId="activeIndicator"
+                    layoutId={isMobile ? "activeIndicatorMobile" : "activeIndicator"}
                     className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent rounded-r-full"
                   />
                 )}
@@ -104,7 +121,7 @@ export function Sidebar() {
                   )}
                 />
                 
-                {!collapsed && (
+                {(isMobile || !collapsed) && (
                   <span className="font-medium">{item.label}</span>
                 )}
               </Link>
@@ -114,7 +131,7 @@ export function Sidebar() {
       </nav>
 
       {/* Vault Status */}
-      {!collapsed && (
+      {(isMobile || !collapsed) && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -131,24 +148,135 @@ export function Sidebar() {
         </motion.div>
       )}
 
-      {/* Collapse Toggle */}
+      {/* Collapse Toggle - Desktop only */}
+      {!isMobile && (
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className={cn(
+            "absolute -right-3 top-1/2 -translate-y-1/2",
+            "w-6 h-6 rounded-full",
+            "bg-background-secondary border border-glass-border",
+            "flex items-center justify-center",
+            "text-foreground-muted hover:text-foreground",
+            "transition-colors duration-200"
+          )}
+        >
+          {collapsed ? (
+            <ChevronRight className="w-3 h-3" />
+          ) : (
+            <ChevronLeft className="w-3 h-3" />
+          )}
+        </button>
+      )}
+    </>
+  );
+}
+
+export function Sidebar() {
+  const pathname = usePathname();
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  return (
+    <>
+      {/* Mobile Hamburger Button */}
       <button
-        onClick={() => setCollapsed(!collapsed)}
+        onClick={() => setMobileOpen(true)}
         className={cn(
-          "absolute -right-3 top-1/2 -translate-y-1/2",
-          "w-6 h-6 rounded-full",
-          "bg-background-secondary border border-glass-border",
+          "fixed left-4 top-4 z-50 lg:hidden",
+          "w-12 h-12 rounded-xl",
+          "bg-background-secondary/80 backdrop-blur-xl",
+          "border border-glass-border",
           "flex items-center justify-center",
           "text-foreground-muted hover:text-foreground",
           "transition-colors duration-200"
         )}
       >
-        {collapsed ? (
-          <ChevronRight className="w-3 h-3" />
-        ) : (
-          <ChevronLeft className="w-3 h-3" />
-        )}
+        <Menu className="w-5 h-5" />
       </button>
-    </motion.aside>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm lg:hidden"
+            />
+
+            {/* Drawer */}
+            <motion.aside
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className={cn(
+                "fixed left-0 top-0 h-screen z-50 lg:hidden",
+                "w-72",
+                "bg-background-secondary/95 backdrop-blur-xl",
+                "border-r border-glass-border",
+                "flex flex-col"
+              )}
+            >
+              <SidebarContent
+                collapsed={false}
+                setCollapsed={setCollapsed}
+                pathname={pathname}
+                onNavClick={() => setMobileOpen(false)}
+                isMobile={true}
+              />
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Desktop Sidebar */}
+      <motion.aside
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={cn(
+          "fixed left-0 top-0 h-screen z-50",
+          "bg-background-secondary/80 backdrop-blur-xl",
+          "border-r border-glass-border",
+          "flex-col",
+          "transition-all duration-300",
+          collapsed ? "w-20" : "w-64",
+          "hidden lg:flex"
+        )}
+      >
+        <SidebarContent
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+          pathname={pathname}
+        />
+      </motion.aside>
+    </>
   );
 }

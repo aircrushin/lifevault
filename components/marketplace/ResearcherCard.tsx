@@ -71,27 +71,27 @@ export function ResearcherCard({
         isConsented && "border-accent/30 glow-accent"
       )}
     >
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col xs:flex-row xs:items-start justify-between gap-3 xs:gap-0 mb-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             {/* Logo/Icon */}
             <div
               className={cn(
-                "w-14 h-14 rounded-2xl flex items-center justify-center",
+                "w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0",
                 "bg-white/[0.03] border border-glass-border"
               )}
             >
-              <Icon className={cn("w-7 h-7", config.color)} />
+              <Icon className={cn("w-5 h-5 sm:w-7 sm:h-7", config.color)} />
             </div>
 
             {/* Info */}
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-semibold">{researcher.name}</h3>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <h3 className="font-semibold text-sm sm:text-base truncate">{researcher.name}</h3>
                 <span
                   className={cn(
-                    "px-2 py-0.5 rounded-full text-[10px] font-medium capitalize",
+                    "px-2 py-0.5 rounded-full text-[10px] font-medium capitalize shrink-0",
                     verification.bg,
                     verification.color
                   )}
@@ -104,7 +104,7 @@ export function ResearcherCard({
           </div>
 
           {/* Consent Toggle */}
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex xs:flex-col items-center xs:items-end gap-2 self-end xs:self-auto">
             <ConsentToggle
               enabled={isConsented}
               onChange={(enabled) => onConsentChange(researcher.id, enabled)}
@@ -133,29 +133,29 @@ export function ResearcherCard({
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-3 gap-4 py-4 border-t border-glass-border">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 py-3 sm:py-4 border-t border-glass-border">
           <div>
-            <div className="flex items-center gap-1.5 text-foreground-muted mb-1">
-              <Calendar className="w-3.5 h-3.5" />
-              <span className="text-xs">Duration</span>
+            <div className="flex items-center gap-1 sm:gap-1.5 text-foreground-muted mb-1">
+              <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span className="text-[10px] sm:text-xs">Duration</span>
             </div>
-            <p className="text-sm font-medium">{researcher.duration}</p>
+            <p className="text-xs sm:text-sm font-medium">{researcher.duration}</p>
           </div>
           <div>
-            <div className="flex items-center gap-1.5 text-foreground-muted mb-1">
-              <Users className="w-3.5 h-3.5" />
-              <span className="text-xs">Participants</span>
+            <div className="flex items-center gap-1 sm:gap-1.5 text-foreground-muted mb-1">
+              <Users className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span className="text-[10px] sm:text-xs">Participants</span>
             </div>
-            <p className="text-sm font-medium">
+            <p className="text-xs sm:text-sm font-medium">
               {researcher.participants.toLocaleString()}
             </p>
           </div>
           <div>
-            <div className="flex items-center gap-1.5 text-foreground-muted mb-1">
-              <Shield className="w-3.5 h-3.5" />
-              <span className="text-xs">Data Access</span>
+            <div className="flex items-center gap-1 sm:gap-1.5 text-foreground-muted mb-1">
+              <Shield className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span className="text-[10px] sm:text-xs">Data Access</span>
             </div>
-            <p className="text-sm font-medium">Anonymized</p>
+            <p className="text-xs sm:text-sm font-medium">Anonymized</p>
           </div>
         </div>
 
@@ -163,26 +163,26 @@ export function ResearcherCard({
         <motion.div
           animate={isConsented ? { scale: [1, 1.02, 1] } : {}}
           className={cn(
-            "p-4 rounded-xl mt-4 transition-all duration-300",
+            "p-3 sm:p-4 rounded-xl mt-3 sm:mt-4 transition-all duration-300",
             isConsented
               ? "bg-accent/10 border border-accent/30"
               : "bg-white/[0.02] border border-glass-border"
           )}
         >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs text-foreground-muted mb-1">
+          <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <p className="text-[10px] sm:text-xs text-foreground-muted mb-0.5 sm:mb-1">
                 {researcher.earningsType === "apy" ? "Annual Yield" : "Your Earnings"}
               </p>
               <p className={cn(
-                "text-2xl font-bold",
+                "text-xl sm:text-2xl font-bold",
                 isConsented ? "text-accent" : "text-foreground"
               )}>
                 {researcher.earningsType === "apy" 
                   ? `${researcher.apy}% APY`
                   : formatCurrency(researcher.earnings)}
                 {researcher.earningsType === "monthly" && (
-                  <span className="text-sm font-normal text-foreground-muted">/mo</span>
+                  <span className="text-xs sm:text-sm font-normal text-foreground-muted">/mo</span>
                 )}
               </p>
             </div>
@@ -190,7 +190,7 @@ export function ResearcherCard({
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/20 text-accent text-xs font-medium"
+                className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent/20 text-accent text-[10px] sm:text-xs font-medium shrink-0"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                 Active

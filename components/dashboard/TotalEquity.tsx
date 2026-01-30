@@ -48,9 +48,9 @@ export function TotalEquity({ value, change, securityLevel }: TotalEquityProps) 
       {/* Decorative gradient */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
       
-      <div className="relative p-8">
+      <div className="relative p-4 sm:p-6 lg:p-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-accent" />
@@ -84,7 +84,7 @@ export function TotalEquity({ value, change, securityLevel }: TotalEquityProps) 
           transition={{ delay: 0.2, duration: 0.5 }}
           className="mb-4"
         >
-          <h2 className="text-5xl font-bold tracking-tight text-gradient-accent">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gradient-accent">
             <AnimatedNumber value={value} />
           </h2>
         </motion.div>
@@ -119,7 +119,7 @@ export function TotalEquity({ value, change, securityLevel }: TotalEquityProps) 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-glass-border"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-glass-border"
         >
           <div>
             <p className="text-xs text-foreground-muted mb-1">Data Assets</p>

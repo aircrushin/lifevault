@@ -93,7 +93,7 @@ function ScannerEffect() {
 function LockAnimation() {
   return (
     <motion.div
-      className="relative w-24 h-24"
+      className="relative w-16 h-16 sm:w-24 sm:h-24"
       initial={{ scale: 0.8 }}
       animate={{ scale: 1 }}
       transition={{ type: "spring", stiffness: 200 }}
@@ -107,7 +107,7 @@ function LockAnimation() {
       
       {/* Inner ring */}
       <motion.div
-        className="absolute inset-2 rounded-full border-2 border-accent/50"
+        className="absolute inset-1 sm:inset-2 rounded-full border-2 border-accent/50"
         animate={{ rotate: -360 }}
         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
       />
@@ -115,11 +115,11 @@ function LockAnimation() {
       {/* Center lock */}
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
-          className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center"
+          className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-accent/20 flex items-center justify-center"
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ duration: 1, repeat: Infinity }}
         >
-          <Lock className="w-6 h-6 text-accent" />
+          <Lock className="w-4 h-4 sm:w-6 sm:h-6 text-accent" />
         </motion.div>
       </div>
     </motion.div>
@@ -174,9 +174,9 @@ export function EncryptionAnimation({
       </AnimatePresence>
 
       {/* Content */}
-      <div className="relative z-10 p-8">
+      <div className="relative z-10 p-4 sm:p-8">
         {/* Central Animation */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-4 sm:mb-8">
           <AnimatePresence mode="wait">
             {stage === "encrypting" ? (
               <motion.div
@@ -192,14 +192,14 @@ export function EncryptionAnimation({
                 key="success"
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="w-24 h-24 rounded-full bg-accent/20 flex items-center justify-center glow-accent"
+                className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-accent/20 flex items-center justify-center glow-accent"
               >
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", delay: 0.2 }}
                 >
-                  <Shield className="w-10 h-10 text-accent" />
+                  <Shield className="w-6 h-6 sm:w-10 sm:h-10 text-accent" />
                 </motion.div>
               </motion.div>
             ) : (
@@ -208,13 +208,13 @@ export function EncryptionAnimation({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="w-24 h-24 rounded-full bg-accent/10 flex items-center justify-center"
+                className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-accent/10 flex items-center justify-center"
               >
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 >
-                  <Loader2 className="w-10 h-10 text-accent" />
+                  <Loader2 className="w-6 h-6 sm:w-10 sm:h-10 text-accent" />
                 </motion.div>
               </motion.div>
             )}
@@ -226,14 +226,14 @@ export function EncryptionAnimation({
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center text-sm text-foreground-muted mb-6"
+            className="text-center text-xs sm:text-sm text-foreground-muted mb-4 sm:mb-6 truncate px-2"
           >
             {fileName}
           </motion.p>
         )}
 
         {/* Stage Indicator */}
-        <div className="flex items-center justify-center gap-2 mb-6">
+        <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 mb-4 sm:mb-6">
           {stages.map((s, index) => {
             const isActive = s.id === stage;
             const isCompleted = index < currentStageIndex;
@@ -249,7 +249,7 @@ export function EncryptionAnimation({
               >
                 <div
                   className={cn(
-                    "flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all",
+                    "flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-medium transition-all",
                     isActive && "bg-accent/20 text-accent",
                     isCompleted && "text-accent",
                     !isActive && !isCompleted && "text-foreground-muted"
@@ -257,7 +257,7 @@ export function EncryptionAnimation({
                 >
                   <Icon
                     className={cn(
-                      "w-3.5 h-3.5",
+                      "w-3 h-3 sm:w-3.5 sm:h-3.5",
                       isActive && "animate-spin"
                     )}
                   />
@@ -266,7 +266,7 @@ export function EncryptionAnimation({
                 {index < stages.length - 1 && (
                   <div
                     className={cn(
-                      "w-8 h-px mx-1",
+                      "w-4 sm:w-8 h-px mx-0.5 sm:mx-1 hidden xs:block",
                       index < currentStageIndex ? "bg-accent" : "bg-glass-border"
                     )}
                   />
@@ -293,7 +293,7 @@ export function EncryptionAnimation({
           key={stage}
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center text-sm mt-4"
+          className="text-center text-xs sm:text-sm mt-3 sm:mt-4"
         >
           {stage === "scanning" && "Analyzing document structure..."}
           {stage === "encrypting" && "Applying 256-bit AES encryption..."}

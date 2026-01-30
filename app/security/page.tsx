@@ -124,7 +124,7 @@ export default function SecurityPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {securityFeatures.map((feature, index) => (
                   <motion.div
                     key={feature.title}
@@ -189,12 +189,12 @@ export default function SecurityPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 mt-4">
-                <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.02] border border-glass-border text-sm hover:border-glass-border-hover transition-colors">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mt-4">
+                <button className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/[0.02] border border-glass-border text-sm hover:border-glass-border-hover transition-colors">
                   <RefreshCw className="w-4 h-4" />
                   Regenerate Key
                 </button>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.02] border border-glass-border text-sm hover:border-glass-border-hover transition-colors">
+                <button className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/[0.02] border border-glass-border text-sm hover:border-glass-border-hover transition-colors">
                   <Lock className="w-4 h-4" />
                   Export Backup
                 </button>
@@ -226,18 +226,18 @@ export default function SecurityPage() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 + index * 0.1 }}
-                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02]"
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-xl bg-white/[0.02]"
                   >
                     <div className="flex items-center gap-3">
                       <div className={cn(
-                        "w-2 h-2 rounded-full",
+                        "w-2 h-2 rounded-full shrink-0",
                         log.type === "read" && "bg-info",
                         log.type === "security" && "bg-warning",
                         log.type === "consent" && "bg-accent"
                       )} />
                       <span className="text-sm">{log.event}</span>
                     </div>
-                    <span className="text-xs text-foreground-muted font-mono">
+                    <span className="text-xs text-foreground-muted font-mono sm:shrink-0 pl-5 sm:pl-0">
                       {log.timestamp}
                     </span>
                   </motion.div>

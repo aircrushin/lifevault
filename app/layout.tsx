@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { Providers } from "@/components/Providers";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-geist-sans",
@@ -52,7 +53,7 @@ export default function RootLayout({
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-accent-secondary/5 rounded-full blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
         </div>
         
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

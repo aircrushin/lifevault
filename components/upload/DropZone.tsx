@@ -62,7 +62,7 @@ export function DropZone({ onFilesSelected, disabled }: DropZoneProps) {
         transition={{ duration: 0.5 }}
         className={cn(
           "relative rounded-2xl border-2 border-dashed transition-all duration-300",
-          "min-h-[300px] flex flex-col items-center justify-center",
+          "min-h-[200px] sm:min-h-[300px] flex flex-col items-center justify-center p-4 sm:p-6",
           isDragging
             ? "border-accent bg-accent/5 scale-[1.02]"
             : "border-glass-border hover:border-glass-border-hover",
@@ -117,32 +117,32 @@ export function DropZone({ onFilesSelected, disabled }: DropZoneProps) {
         <motion.div
           animate={isDragging ? { scale: 1.1 } : { scale: 1 }}
           className={cn(
-            "w-16 h-16 rounded-2xl flex items-center justify-center mb-4",
+            "w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4",
             "bg-accent/10 border border-accent/20",
             isDragging && "glow-accent"
           )}
         >
           <Upload className={cn(
-            "w-7 h-7 transition-colors",
+            "w-5 h-5 sm:w-7 sm:h-7 transition-colors",
             isDragging ? "text-accent" : "text-foreground-muted"
           )} />
         </motion.div>
 
-        <h3 className="text-lg font-medium mb-2">
+        <h3 className="text-base sm:text-lg font-medium mb-1 sm:mb-2 text-center px-2">
           {isDragging ? "Release to encrypt" : "Deposit your health data"}
         </h3>
-        <p className="text-sm text-foreground-muted mb-4">
+        <p className="text-xs sm:text-sm text-foreground-muted mb-3 sm:mb-4 text-center">
           Drag & drop files or click to browse
         </p>
 
         {/* Accepted Formats */}
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
           {Object.entries(acceptedTypes).slice(0, 4).map(([type, config]) => (
             <div
               key={type}
-              className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/[0.03] text-xs text-foreground-muted"
+              className="flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-1 rounded-md bg-white/[0.03] text-[10px] sm:text-xs text-foreground-muted"
             >
-              <config.icon className="w-3 h-3" />
+              <config.icon className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
               {config.label}
             </div>
           ))}
@@ -177,7 +177,7 @@ export function DropZone({ onFilesSelected, disabled }: DropZoneProps) {
                     <FileText className="w-4 h-4 text-accent" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium truncate max-w-[200px]">
+                    <p className="text-xs sm:text-sm font-medium truncate max-w-[150px] sm:max-w-[200px]">
                       {file.name}
                     </p>
                     <p className="text-xs text-foreground-muted">

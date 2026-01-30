@@ -41,7 +41,7 @@ function CircularProgress({ score, maxScore = 900, minScore = 300 }: { score: nu
   };
 
   return (
-    <div className="relative w-48 h-48 mx-auto">
+    <div className="relative w-36 h-36 sm:w-48 sm:h-48 mx-auto">
       {/* Background circle */}
       <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
         <circle
@@ -75,7 +75,7 @@ function CircularProgress({ score, maxScore = 900, minScore = 300 }: { score: nu
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, type: "spring" }}
-          className="text-4xl font-bold"
+          className="text-3xl sm:text-4xl font-bold"
           style={{ color: getScoreColor() }}
         >
           {score}
@@ -101,7 +101,7 @@ export function HealthScore({ score, maxScore = 900, minScore = 300, trend }: He
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
     >
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
