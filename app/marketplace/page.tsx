@@ -5,9 +5,11 @@ import { ResearcherCard } from "@/components/marketplace/ResearcherCard";
 import { EarningsDashboard } from "@/components/marketplace/EarningsDashboard";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { motion } from "framer-motion";
-import { Search, Filter, SlidersHorizontal } from "lucide-react";
-import { useState, useMemo } from "react";
+import { Search, SlidersHorizontal } from "lucide-react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
+
+type AccessFilter = "all" | "granted" | "denied";
 
 // Mock data
 const researchers = [
@@ -97,6 +99,19 @@ export default function MarketplacePage() {
   });
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [accessFilter, setAccessFilter] = useState<AccessFilter>("all");
+  const [showAccessDropdown, setShowAccessDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowAccessDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleConsentChange = (id: string, enabled: boolean) => {
     setConsents((prev) => ({ ...prev, [id]: enabled }));
@@ -112,9 +127,13 @@ export default function MarketplacePage() {
         (activeFilter === "Pharmaceutical" && r.type === "pharma") ||
         (activeFilter === "University" && r.type === "university") ||
         (activeFilter === "Research Lab" && r.type === "research");
-      return matchesSearch && matchesFilter;
+      const matchesAccess =
+        accessFilter === "all" ||
+        (accessFilter === "granted" && consents[r.id]) ||
+        (accessFilter === "denied" && !consents[r.id]);
+      return matchesSearch && matchesFilter && matchesAccess;
     });
-  }, [searchQuery, activeFilter]);
+  }, [searchQuery, activeFilter, accessFilter, consents]);
 
   const activeConsentsCount = Object.values(consents).filter(Boolean).length;
 
@@ -143,10 +162,10 @@ export default function MarketplacePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-6"
+            className="mb-6 overflow-visible"
           >
-            <div className="p-4">
-              <div className="flex flex-col sm:flex-row gap-4">
+            <div className="p-4 overflow-visible">
+              <div className="flex flex-col sm:flex-row gap-4 relative">
                 {/* Search */}
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground-muted" />
@@ -166,17 +185,56 @@ export default function MarketplacePage() {
                 </div>
 
                 {/* Filter Toggle */}
-                <button
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2.5 rounded-xl",
-                    "bg-white/[0.02] border border-glass-border",
-                    "text-sm text-foreground-muted",
-                    "hover:border-glass-border-hover transition-colors"
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setShowAccessDropdown(!showAccessDropdown)}
+                    className={cn(
+                      "flex items-center gap-2 px-4 py-2.5 rounded-xl",
+                      "bg-white/[0.02] border border-glass-border",
+                      "text-sm text-foreground-muted",
+                      "hover:border-glass-border-hover transition-colors",
+                      accessFilter !== "all" && "border-accent/50 text-accent"
+                    )}
+                  >
+                    <SlidersHorizontal className="w-4 h-4" />
+                    Filters
+                    {accessFilter !== "all" && (
+                      <span className="ml-1 px-1.5 py-0.5 text-xs bg-accent/20 rounded">1</span>
+                    )}
+                  </button>
+                  {showAccessDropdown && (
+                    <div className={cn(
+                      "absolute right-0 top-full mt-2 w-48 z-[100]",
+                      "bg-background/95 backdrop-blur-xl border border-glass-border rounded-xl",
+                      "shadow-xl overflow-hidden"
+                    )}>
+                      <div className="p-2">
+                        <p className="text-xs text-foreground-muted px-2 py-1.5 font-medium">Access Type</p>
+                        {[
+                          { value: "all", label: "All" },
+                          { value: "granted", label: "Granted" },
+                          { value: "denied", label: "Denied" },
+                        ].map((option) => (
+                          <button
+                            key={option.value}
+                            onClick={() => {
+                              setAccessFilter(option.value as AccessFilter);
+                              setShowAccessDropdown(false);
+                            }}
+                            className={cn(
+                              "w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors",
+                              accessFilter === option.value
+                                ? "bg-accent/20 text-accent"
+                                : "text-foreground hover:bg-white/[0.05]"
+                            )}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   )}
-                >
-                  <SlidersHorizontal className="w-4 h-4" />
-                  Filters
-                </button>
+                </div>
               </div>
 
               {/* Filter Pills */}

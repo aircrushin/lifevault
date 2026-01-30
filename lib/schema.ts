@@ -26,7 +26,18 @@ export const sessions = pgTable('sessions', {
   createdAt: timestamp('created_at').defaultNow(),
 });
 
+export const wallets = pgTable('wallets', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'cascade' }),
+  address: varchar('address', { length: 255 }).notNull(),
+  walletType: varchar('wallet_type', { length: 50 }).notNull(), // metamask, coinbase, walletconnect
+  isPrimary: boolean('is_primary').default(false),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type VerificationToken = typeof verificationTokens.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
+export type Wallet = typeof wallets.$inferSelect;
