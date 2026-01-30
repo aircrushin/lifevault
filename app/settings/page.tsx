@@ -22,7 +22,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { signIn, signOut } from "@/lib/auth";
+import { signIn } from "@/lib/auth";
+import { logoutAction } from "@/lib/auth-actions";
 
 interface UserProfile {
   id: number;
@@ -151,7 +152,7 @@ export default function SettingsPage() {
   const handleLogout = async () => {
     setLoggingOut(true);
     try {
-      await signOut({ redirectTo: '/auth/signin' });
+      await logoutAction();
     } catch (error) {
       console.error('Logout error:', error);
       setLoggingOut(false);

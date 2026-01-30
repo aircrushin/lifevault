@@ -4,6 +4,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { DropZone } from "@/components/upload/DropZone";
 import { EncryptionAnimation } from "@/components/upload/EncryptionAnimation";
 import { AssetPreview } from "@/components/upload/AssetPreview";
+import { UploadHistory } from "@/components/upload/UploadHistory";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Zap, Lock, Eye } from "lucide-react";
@@ -35,10 +36,20 @@ const features = [
   },
 ];
 
+const mockValuation = {
+  baseValue: 50,
+  completenessMultiplier: 1.4,
+  scarcityMultiplier: 1.2,
+  demandMultiplier: 1.8,
+  totalValue: 151.2,
+  monthlyYield: 12.5,
+};
+
 export default function UploadPage() {
   const [stage, setStage] = useState<Stage>("idle");
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [historyKey, setHistoryKey] = useState(0);
 
   const handleFilesSelected = useCallback(async (files: File[]) => {
     if (files.length === 0) return;
@@ -61,21 +72,33 @@ export default function UploadPage() {
     await sleep(1500);
 
     setShowPreview(true);
+
+    try {
+      await fetch("/api/uploads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileSize: file.size,
+          fileType: file.type || "application/octet-stream",
+          encryptionHash: `sha256-${Math.random().toString(36).substring(2)}`,
+          baseValue: mockValuation.baseValue,
+          totalValue: mockValuation.totalValue,
+          monthlyYield: mockValuation.monthlyYield,
+          completenessMultiplier: mockValuation.completenessMultiplier,
+          scarcityMultiplier: mockValuation.scarcityMultiplier,
+          demandMultiplier: mockValuation.demandMultiplier,
+        }),
+      });
+      setHistoryKey((k) => k + 1);
+    } catch (error) {
+      console.error("Failed to save upload record:", error);
+    }
   }, []);
 
   const handleComplete = useCallback(() => {
     setStage("idle");
   }, []);
-
-  // Mock valuation data
-  const mockValuation = {
-    baseValue: 50,
-    completenessMultiplier: 1.4,
-    scarcityMultiplier: 1.2,
-    demandMultiplier: 1.8,
-    totalValue: 151.2,
-    monthlyYield: 12.5,
-  };
 
   return (
     <MainLayout>
@@ -150,6 +173,9 @@ export default function UploadPage() {
 
         {/* Sidebar */}
         <div className="col-span-12 lg:col-span-4 space-y-6">
+          {/* Upload History */}
+          <UploadHistory key={historyKey} />
+
           {/* Security Features */}
           <GlassCard
             initial={{ opacity: 0, x: 20 }}
