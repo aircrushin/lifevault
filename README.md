@@ -79,13 +79,13 @@ Consent management and earnings platform.
 - **TypeScript** - Type-safe development
 
 ### Styling & Animation
-- **Tailwind CSS v4** - Utility-first CSS
-- **Framer Motion** - Production-ready motion library
+- **Tailwind CSS v4** - Utility-first CSS with PostCSS integration
+- **Framer Motion 12.29** - Production-ready motion library
 - **CSS Variables** - Dynamic theming system
 
 ### Data Visualization
-- **Recharts** - Charts for health metrics
-- **Lucide React** - Icon library
+- **Recharts 3.7** - Charts for health metrics
+- **Lucide React 0.563** - Icon library
 
 ### Utilities
 - **clsx** + **tailwind-merge** - Conditional class management
@@ -104,7 +104,7 @@ Consent management and earnings platform.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/lifevault.git
+git clone https://github.com/aircrushin/lifevault.git
 cd lifevault
 
 # Install dependencies
@@ -314,6 +314,6 @@ This project is licensed under the MIT License.
 
 **Take ownership of your biological assets**
 
-[LifeVault](https://lifevault.io) | [Documentation](https://docs.lifevault.io) | [Twitter](https://twitter.com/lifevault)
+[GitHub](https://github.com/aircrushin/lifevault)
 
 </div>

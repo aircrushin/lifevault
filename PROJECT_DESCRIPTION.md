@@ -24,24 +24,33 @@ The platform features a stunning glass-morphism UI with smooth animations, respo
 
 ### Tech Stack
 
-**Frontend Framework**:
-- Next.js 16.1.6 with App Router and React 19.2.3 for modern, performant React architecture
-- TypeScript for full type safety and better developer experience
+**Frontend**:
+- Next.js 16.1.6 with App Router and React 19.2.3
+- TypeScript for type safety and developer experience
 
-**Styling & Design**:
-- Tailwind CSS v4 with PostCSS integration for utility-first styling
-- Custom glass-morphism design system with CSS custom properties
-- Space Grotesk (variable font) for UI text and JetBrains Mono for data/code display
+**Styling**:
+- Tailwind CSS v4 with @tailwindcss/postcss
+- Glass-morphism design system via CSS custom properties
+- Space Grotesk and JetBrains Mono (variable fonts)
 
-**Animations & Visualizations**:
-- Framer Motion 12.29.2 for production-ready animations and micro-interactions
-- Recharts 3.7.0 for health data visualization (radar charts, earnings graphs)
-- Custom CSS animations (pulse-glow, animate-float, gradient-shift)
-- Animated gradient backgrounds with noise texture overlay
+**Animations & Charts**:
+- Framer Motion 12.29.2 for animations and micro-interactions
+- Recharts 3.7.0 for health visualizations (radar, earnings)
+- Custom CSS (pulse-glow, animate-float, gradient-shift) and gradient/noise backgrounds
 
-**Icons & Utilities**:
-- Lucide React 0.563.0 for modern, consistent iconography
-- clsx 2.1.1 + tailwind-merge 3.4.0 for conditional class management
+**Backend & Data**:
+- Next.js API routes (App Router)
+- Drizzle ORM 0.45.x with Drizzle Kit for migrations and Studio
+- Neon serverless Postgres (@neondatabase/serverless)
+
+**Auth & Email**:
+- NextAuth.js 5.0.0-beta.30 (credentials, sessions)
+- bcryptjs for password hashing
+- Nodemailer for transactional email
+
+**UI & Utilities**:
+- Lucide React 0.563.0 for icons
+- clsx 2.1.1 + tailwind-merge 3.4.0 for class composition
 
 ### Architecture
 
